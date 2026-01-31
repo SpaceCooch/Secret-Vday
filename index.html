@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine's Day: Catch the Elusive "No"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+        
+        html {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a0b1e 0%, #3d1e40 50%, #5a2a5a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            touch-action: pan-y;
+        }
+        
+        /* Container with responsive padding - EXPANDED */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: clamp(15px, 3vw, 30px);
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header responsive styles */
+        header {
+            text-align: center;
+            padding: clamp(20px, 4vw, 40px) clamp(10px, 2vw, 20px);
+        }
+        
+        h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            margin-bottom: clamp(10px, 2vw, 20px);
+            background: linear-gradient(to right, #ff6b9d, #ff8fab, #c86bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.4);
+            line-height: 1.2;
+            padding: 0 clamp(10px, 2vw, 20px);
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #ffc6e0;
+            margin: 0 auto clamp(25px, 4vw, 40px);
+            max-width: min(900px, 95vw);
+            line-height: 1.5;
+            padding: 0 clamp(10px, 2vw, 20px);
+        }
+        
+        .heart-icon {
+            color: #ff4757;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0 clamp(5px, 1vw, 10px);
+            display: inline-block;
+            vertical-align: middle;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        /* Game Area responsive styles - SIGNIFICANTLY EXPANDED */
+        .game-area {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: clamp(20px, 4vw, 30px);
+            padding: clamp(25px, 4vw, 45px) clamp(20px, 3vw, 35px);
+            text-align: center;
+            margin: clamp(20px, 4vw, 40px) auto;
+            max-width: min(1400px, 98vw);
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            box-shadow: 0 clamp(10px, 2vw, 20px) clamp(20px, 4vw, 40px) rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            min-height: min(700px, 80vh);
+            transition: all 0.5s ease;
+        }
+        
+        .game-area.celebrating {
+            background: rgba(255, 105, 180, 0.15);
+            border-color: rgba(255, 105, 180, 0.6);
+        }
+        
+        /* Instructions responsive */
+        .instructions {
+            margin-bottom: clamp(20px, 4vw, 30px);
+            font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+            color: #ffc6e0;
+            line-height: 1.6;
+            padding: clamp(15px, 2.5vw, 20px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: clamp(12px, 2vw, 18px);
+        }
+        
+        .instructions p {
+            margin-bottom: clamp(8px, 1.5vw, 12px);
+        }
+        
+        .instructions i {
+            margin-right: 8px;
+            color: #ff6b9d;
+        }
+        
+        /* Speed indicator */
+        .speed-indicator {
+            margin: 15px 0 30px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 1.1rem;
+            color: #ffc6e0;
+        }
+        
+        .speed-meter {
+            display: inline-block;
+            width: 180px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            margin: 0 15px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        
+        .speed-fill {
+            height: 100%;
+            background: linear-gradient(to right, #9d4edd, #c86bfa);
+            width: 20%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+        
+        /* Buttons Container responsive - SIGNIFICANTLY EXPANDED */
+        .buttons-container {
+            position: relative;
+            height: clamp(400px, 60vh, 650px);
+            margin: clamp(25px, 4vw, 40px) 0;
+            border-radius: clamp(15px, 3vw, 25px);
+            background: rgba(255, 255, 255, 0.05);
+            border: 3px dashed rgba(255, 182, 193, 0.5);
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .buttons-container.celebrating {
+            background: rgba(255, 105, 180, 0.1);
+            border: 3px dashed rgba(255, 105, 180, 0.7);
+        }
+        
+        /* Buttons responsive styles - FIXED WIDTH TO PREVENT STRETCHING */
+        .valentine-btn {
+            position: absolute;
+            padding: clamp(15px, 3vw, 25px) clamp(25px, 5vw, 45px);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: bold;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 clamp(8px, 1.5vw, 12px) clamp(15px, 2.5vw, 25px) rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            touch-action: manipulation;
+            min-width: 180px; /* Fixed minimum width */
+            max-width: 220px; /* Fixed maximum width */
+            white-space: nowrap;
+            width: auto; /* Let content determine width but within min/max */
+        }
+        
+        /* Mobile-specific button styles */
+        @media (max-width: 768px) {
+            .valentine-btn {
+                min-height: 60px;
+                min-width: 140px;
+                max-width: 180px;
+                padding: 15px 30px;
+            }
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to right, #ff6b9d, #ff8fab);
+            color: white;
+            left: 20%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 3px solid #ff4d7a;
+        }
+        
+        .btn-yes:hover, .btn-yes:active {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 clamp(10px, 2vw, 15px) clamp(18px, 3vw, 28px) rgba(255, 107, 157, 0.5);
+        }
+        
+        .btn-no {
+            background: linear-gradient(to right, #9d4edd, #c86bfa);
+            color: white;
+            right: 20%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            border: 3px solid #8a2be2;
+            transition: left 0.2s ease, top 0.2s ease, transform 0.3s ease;
+        }
+        
+        .btn-no:hover, .btn-no:active {
+            transform: translate(50%, -50%) scale(1.03);
+            box-shadow: 0 clamp(10px, 2vw, 15px) clamp(18px, 3vw, 28px) rgba(157, 78, 221, 0.5);
+        }
+        
+        .valentine-btn i {
+            margin-right: clamp(8px, 1.5vw, 12px);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+        }
+        
+        /* Messages responsive - LONGER DISPLAY */
+        .message {
+            margin-top: clamp(20px, 4vw, 30px);
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: #ffc6e0;
+            min-height: clamp(50px, 8vw, 70px);
+            padding: clamp(15px, 3vw, 20px);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: clamp(12px, 2vw, 18px);
+            display: none;
+            animation: messagePop 0.5s;
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .celebration-message {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: #ffc6e0;
+            padding: clamp(20px, 4vw, 35px);
+            margin-top: clamp(25px, 5vw, 40px);
+            background: linear-gradient(to right, rgba(255, 107, 157, 0.2), rgba(200, 107, 250, 0.2));
+            border-radius: clamp(15px, 3vw, 25px);
+            display: none;
+            animation: celebrationPop 1s;
+            line-height: 1.3;
+        }
+        
+        .celebration-message.show {
+            display: block;
+        }
+        
+        .celebration-message p {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            margin-top: clamp(10px, 2vw, 15px);
+            color: #ffd6e7;
+        }
+        
+        /* Footer responsive */
+        .footer {
+            text-align: center;
+            margin-top: clamp(30px, 5vw, 50px);
+            padding: clamp(15px, 3vw, 25px);
+            color: #ffc6e0;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+        
+        /* Performance-optimized balloons */
+        .balloon {
+            position: absolute;
+            top: 100%;
+            width: clamp(40px, 8vw, 70px);
+            height: auto;
+            aspect-ratio: 1/1.2;
+            border-radius: 50%;
+            z-index: 1;
+            animation: floatUp 20s linear infinite;
+            opacity: 0.8;
+            will-change: transform;
+        }
+        
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: clamp(30px, 6vw, 50px);
+            background: rgba(255, 255, 255, 0.6);
+        }
+        
+        .balloon.red {
+            background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff4757);
+        }
+        
+        .balloon.pink {
+            background: radial-gradient(circle at 30% 30%, #ff8fab, #ff6b9d);
+        }
+        
+        .balloon.purple {
+            background: radial-gradient(circle at 30% 30%, #c86bfa, #9d4edd);
+        }
+        
+        /* Celebration hearts */
+        .celebration-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            display: none;
+        }
+        
+        .celebration-hearts.active {
+            display: block;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff6b9d;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            opacity: 0;
+            animation: fallHeart 8s linear infinite;
+            will-change: transform, opacity;
+        }
+        
+        .heart:nth-child(2n) {
+            color: #ff8fab;
+        }
+        
+        .heart:nth-child(3n) {
+            color: #c86bfa;
+        }
+        
+        /* Animations */
+        @keyframes floatUp {
+            0% {
+                top: 100%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                top: -100px;
+                transform: translateX(120px) rotate(25deg);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fallHeart {
+            0% {
+                top: -50px;
+                opacity: 0;
+                transform: translateX(0) rotate(0deg);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+                transform: translateX(100px) rotate(360deg);
+            }
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes messagePop {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes celebrationPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .balloon, .heart, .valentine-btn, .heart-icon {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Tablet specific adjustments (768px to 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .buttons-container {
+                height: 500px;
+            }
+            
+            .game-area {
+                max-width: min(1200px, 98vw);
+            }
+            
+            .btn-yes {
+                left: 25%;
+            }
+            
+            .btn-no {
+                right: 25%;
+            }
+        }
+        
+        /* Mobile specific adjustments (under 768px) */
+        @media (max-width: 767px) {
+            .container {
+                padding: 12px;
+            }
+            
+            .game-area {
+                min-height: 500px;
+                margin: 15px auto;
+                max-width: 98vw;
+            }
+            
+            .buttons-container {
+                height: 380px;
+                margin: 25px 0;
+            }
+            
+            /* Stack buttons vertically on very small screens */
+            @media (max-width: 480px) {
+                .btn-yes, .btn-no {
+                    left: 50%;
+                    right: auto;
+                    transform: translateX(-50%);
+                    min-width: 70vw;
+                    max-width: 70vw;
+                }
+                
+                .btn-yes {
+                    top: 35%;
+                }
+                
+                .btn-no {
+                    top: 65%;
+                }
+                
+                .btn-yes:hover, .btn-yes:active {
+                    transform: translateX(-50%) scale(1.05);
+                }
+                
+                .btn-no:hover, .btn-no:active {
+                    transform: translateX(-50%) scale(1.03);
+                }
+            }
+            
+            /* Adjust for landscape mode on mobile */
+            @media (max-height: 500px) and (orientation: landscape) {
+                .game-area {
+                    min-height: 380px;
+                    padding: 15px;
+                }
+                
+                .buttons-container {
+                    height: 280px;
+                }
+                
+                .valentine-btn {
+                    padding: 12px 25px;
+                    min-height: 50px;
+                }
+                
+                h1 {
+                    font-size: 2rem;
+                    margin-bottom: 10px;
+                }
+                
+                .subtitle {
+                    font-size: 1rem;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        
+        /* Laptop/Desktop optimizations - EXPANDED */
+        @media (min-width: 1025px) {
+            .game-area {
+                max-width: 1400px;
+            }
+            
+            .buttons-container {
+                height: 550px;
+            }
+            
+            .valentine-btn:hover {
+                transform: translate(-50%, -50%) scale(1.08);
+            }
+            
+            .btn-no:hover {
+                transform: translate(50%, -50%) scale(1.08);
+            }
+            
+            /* Extra large screens */
+            @media (min-width: 1400px) {
+                .buttons-container {
+                    height: 650px;
+                }
+                
+                .game-area {
+                    max-width: 1600px;
+                }
+            }
+            
+            /* Super wide screens */
+            @media (min-width: 1800px) {
+                .buttons-container {
+                    height: 700px;
+                }
+            }
+        }
+        
+        /* High DPI screens optimization */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .game-area {
+                border-width: 1.5px;
+            }
+            
+            .valentine-btn {
+                border-width: 2.5px;
+            }
+        }
+        
+        /* Dark mode preference */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #0d0511 0%, #2a142c 50%, #3d1b3d 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Valentine's Day Challenge <i class="fas fa-heart heart-icon"></i></h1>
+            <p class="subtitle">Will you be my Valentine 💖?</p>
+        </header>
+        
+        <main>
+            <div class="game-area" id="gameArea">
+                <div class="instructions">
+                    <p><i class="fas fa-heart"></i> Try to catch my heart, If you dare 😍 </p>
+                    <p><i class="fas fa-heart"></i> The "Yes" button is friendly and is a safe place💖</p>
+                    <p><i class="fas fa-heart"></i> The "No" button is a challenge try and Reject me now! 😈</p>
+                </div>
+                
+                <div class="speed-indicator">
+                    <span>Speed Level:</span>
+                    <div class="speed-meter">
+                        <div class="speed-fill" id="speedFill"></div>
+                    </div>
+                    <span id="speedLevel">1/8</span>
+                </div>
+                
+                <div class="buttons-container" id="buttonsContainer">
+                    <button class="valentine-btn btn-yes" id="yesBtn" aria-label="Yes button - click to celebrate">
+                        <i class="fas fa-heart"></i> YES
+                    </button>
+                    <button class="valentine-btn btn-no" id="noBtn" aria-label="No button - gets faster each time you click it">
+                        <i class="fas fa-heart-broken"></i> NO
+                    </button>
+                </div>
+                
+                <div class="message" id="message" role="alert" aria-live="polite">
+                    <!-- Cute messages will appear here when "No" is clicked -->
+                </div>
+                
+                <div class="celebration-message" id="celebrationMessage" role="alert" aria-live="assertive">
+                    <i class="fas fa-heart"></i> YAY! You said YES! <i class="fas fa-heart"></i>
+                    <p> 💖 Come visit me on Valentine Day 💖</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>Made with <i class="fas fa-heart" style="color:#ff4757; animation: bounce 1s infinite;"></i> for Valentine's Day | Try to catch the "No" button in the massive arena!</p>
+        </footer>
+    </div>
+    
+    <!-- Balloons Container -->
+    <div id="balloonsContainer" aria-hidden="true"></div>
+    
+    <!-- Celebration hearts (will be activated when "Yes" is clicked) -->
+    <div class="celebration-hearts" id="celebrationHearts" aria-hidden="true"></div>
+    
+    <script>
+        // Optimized JavaScript with expanded arena and truly random movement
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const buttonsContainer = document.getElementById('buttonsContainer');
+            const gameArea = document.getElementById('gameArea');
+            const message = document.getElementById('message');
+            const celebrationMessage = document.getElementById('celebrationMessage');
+            const balloonsContainer = document.getElementById('balloonsContainer');
+            const celebrationHearts = document.getElementById('celebrationHearts');
+            const speedFill = document.getElementById('speedFill');
+            const speedLevel = document.getElementById('speedLevel');
+            
+            // Device detection
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            // Cute messages for when "No" is clicked
+            const cuteMessages = [
+                "Oh no you don't! I'm getting faster each time! 🏃‍♂️⚡",
+                "Try again! But I'm speeding up with every click! 🚀",
+                "Nope! Can't catch me! I'm getting quicker! 😜💨",
+                "Too slow! I'm speeding up each time you try! ⚡🐇",
+                "Almost had me! But I'm getting faster! 😅🏎️",
+                "Left, right, up, down - I go everywhere! 🗺️",
+                "My movement is completely random now! Good luck! 🎯",
+                "Rejecting me again Huh 😜🎯",
+                "Not you trying to chase me 😏⚡",
+                "Come on reach and grab it 😏💖",
+                "Good Girl keep trying 💖😜💨",
+                "Chase me like you want me come on 💖😏",
+                "Don't give up your so close 😏🔞",
+                "Keep rejecting me there are consequences 😉😈"
+            ];
+            
+            // Speed system variables
+            let clickCount = 0;
+            const maxSpeedLevel = 8; // Maximum speed level
+            let currentSpeedMultiplier = 1; // Starts at 1x speed
+            let currentTransitionTime = 0.4; // Base transition time in seconds
+            
+            // Update speed indicator
+            function updateSpeedIndicator() {
+                const speedPercentage = (clickCount / maxSpeedLevel) * 100;
+                speedFill.style.width = `${Math.min(100, speedPercentage)}%`;
+                speedLevel.textContent = `${Math.min(clickCount, maxSpeedLevel)}/${maxSpeedLevel}`;
+                
+                // Change color based on speed
+                if (clickCount >= maxSpeedLevel * 0.8) {
+                    speedFill.style.background = "linear-gradient(to right, #ff6b9d, #ff4757)";
+                } else if (clickCount >= maxSpeedLevel * 0.5) {
+                    speedFill.style.background = "linear-gradient(to right, #c86bfa, #9d4edd)";
+                } else {
+                    speedFill.style.background = "linear-gradient(to right, #9d4edd, #c86bfa)";
+                }
+            }
+            
+            // Calculate current speed based on click count
+            function calculateCurrentSpeed() {
+                // Speed increases with each click, up to 5x faster
+                currentSpeedMultiplier = 1 + (clickCount * 0.5);
+                
+                // Transition time decreases with each click (faster movement)
+                currentTransitionTime = Math.max(0.07, 0.4 - (clickCount * 0.04));
+                
+                // Distance increases with each click (moves farther)
+                // Increased max distance for expanded container
+                return Math.min(350, 120 + (clickCount * 30));
+            }
+            
+            // Performance: Adjust number of elements based on device
+            const balloonCount = isMobile ? 20 : 40; // More balloons for larger screens
+            const heartCount = isMobile ? 40 : 80; // More hearts for larger screens
+            
+            // Variables for random movement control
+            let lastRandomMoveTime = 0;
+            const RANDOM_MOVE_COOLDOWN = 3000; // 3 seconds between random moves
+            let isMovingRandomly = false;
+            let randomMoveInterval;
+            
+            // Create falling balloons with device-optimized count
+            function createBalloons() {
+                const colors = ['red', 'pink', 'purple'];
+                
+                for (let i = 0; i < balloonCount; i++) {
+                    const balloon = document.createElement('div');
+                    balloon.className = `balloon ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    
+                    // Random position
+                    balloon.style.left = `${Math.random() * 100}vw`;
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 15 + 20;
+                    const delay = Math.random() * 10;
+                    balloon.style.animationDuration = `${duration}s`;
+                    balloon.style.animationDelay = `${delay}s`;
+                    
+                    // Performance: Use transform3d for GPU acceleration on mobile
+                    balloon.style.transform = 'translate3d(0,0,0)';
+                    
+                    balloonsContainer.appendChild(balloon);
+                    
+                    // Clean up balloons that are done animating (memory management)
+                    setTimeout(() => {
+                        if (balloon.parentNode) {
+                            balloon.parentNode.removeChild(balloon);
+                        }
+                    }, (duration + delay) * 1000);
+                }
+            }
+            
+            // Create celebration hearts with device-optimized count
+            function createCelebrationHearts() {
+                for (let i = 0; i < heartCount; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    
+                    // Random position
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    
+                    // Random animation duration and delay
+                    const duration = Math.random() * 10 + 6;
+                    const delay = Math.random() * 5;
+                    heart.style.animationDuration = `${duration}s`;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    // Performance: Use transform3d for GPU acceleration
+                    heart.style.transform = 'translate3d(0,0,0)';
+                    
+                    celebrationHearts.appendChild(heart);
+                }
+            }
+            
+            // Initialize balloons and celebration hearts
+            createBalloons();
+            createCelebrationHearts();
+            
+            // Regenerate balloons periodically
+            setInterval(createBalloons, 20000);
+            
+            // Function to move "No" button to a truly random position in EXPANDED container
+            function moveNoButtonRandomly(showMessage = false, isClick = false) {
+                if (isMovingRandomly) return; // Prevent overlapping movements
+                
+                isMovingRandomly = true;
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                const buttonRect = noBtn.getBoundingClientRect();
+                
+                // Calculate max positions with safe margins - LARGER MARGINS FOR EXPANDED CONTAINER
+                const margin = 30;
+                const maxX = containerRect.width - buttonRect.width - margin * 2;
+                const maxY = containerRect.height - buttonRect.height - margin * 2;
+                
+                // Generate truly random position within container - ALL DIRECTIONS INCLUDING LEFT
+                const randomX = Math.floor(Math.random() * maxX) + margin;
+                const randomY = Math.floor(Math.random() * maxY) + margin;
+                
+                // Apply new position with smooth transition - SPEED ADJUSTED
+                noBtn.style.transition = `left ${currentTransitionTime}s ease, top ${currentTransitionTime}s ease`;
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                noBtn.style.transform = 'none';
+                
+                if (showMessage) {
+                    // Show a cute message - LONGER DISPLAY (4 seconds)
+                    const randomMessage = cuteMessages[Math.floor(Math.random() * cuteMessages.length)];
+                    message.textContent = randomMessage;
+                    message.classList.add('show');
+                    
+                    // Hide message after 20 seconds (increased from 2 seconds)
+                    setTimeout(() => {
+                        message.classList.remove('show');
+                    }, 20000);
+                }
+                
+                // Reset moving flag after transition completes
+                setTimeout(() => {
+                    isMovingRandomly = false;
+                }, currentTransitionTime * 1000);
+            }
+            
+            // Function to move "No" button away from cursor/touch with TRULY RANDOM direction
+            function moveAwayFromCursor(event) {
+                if (isMovingRandomly) return; // Prevent overlapping movements
+                
+                const containerRect = buttonsContainer.getBoundingClientRect();
+                const buttonRect = noBtn.getBoundingClientRect();
+                
+                // Get cursor/touch position
+                let cursorX, cursorY;
+                
+                if (event.type.includes('touch')) {
+                    cursorX = event.touches[0].clientX - containerRect.left;
+                    cursorY = event.touches[0].clientY - containerRect.top;
+                } else {
+                    cursorX = event.clientX - containerRect.left;
+                    cursorY = event.clientY - containerRect.top;
+                }
+                
+                // Get button center position
+                const buttonCenterX = buttonRect.left - containerRect.left + buttonRect.width / 2;
+                const buttonCenterY = buttonRect.top - containerRect.top + buttonRect.height / 2;
+                
+                // Calculate distance from cursor to button
+                const distanceX = cursorX - buttonCenterX;
+                const distanceY = cursorY - buttonCenterY;
+                
+                // Calculate distance magnitude
+                const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                
+                // Adjust sensitivity based on device and speed - INCREASED FOR LARGER CONTAINER
+                const triggerDistance = isMobile ? 140 : 180;
+                
+                // If cursor is close to button, move it in a RANDOM direction (not just away)
+                if (distance < triggerDistance) {
+                    isMovingRandomly = true;
+                    
+                    // Generate a COMPLETELY random angle (0 to 2π) - ALL DIRECTIONS
+                    const randomAngle = Math.random() * Math.PI * 2;
+                    
+                    // Calculate movement distance (based on speed level)
+                    const currentDistance = calculateCurrentSpeed();
+                    const moveDistance = currentDistance + Math.random() * 80; // Increased random factor for larger area
+                    
+                    // Calculate new position based on random angle - GOES ANYWHERE
+                    let newX = buttonRect.left - containerRect.left + Math.cos(randomAngle) * moveDistance;
+                    let newY = buttonRect.top - containerRect.top + Math.sin(randomAngle) * moveDistance;
+                    
+                    // Constrain within container with safe margins - LARGER MARGINS
+                    const margin = 25;
+                    newX = Math.max(margin, Math.min(newX, containerRect.width - buttonRect.width - margin));
+                    newY = Math.max(margin, Math.min(newY, containerRect.height - buttonRect.height - margin));
+                    
+                    // Apply new position with faster transition for responsive feel - SPEED ADJUSTED
+                    const hoverTransition = Math.max(0.05, currentTransitionTime * 0.4);
+                    noBtn.style.transition = `left ${hoverTransition}s ease, top ${hoverTransition}s ease`;
+                    noBtn.style.left = `${newX}px`;
+                    noBtn.style.top = `${newY}px`;
+                    noBtn.style.transform = 'none';
+                    
+                    // For mobile, prevent default to avoid zooming
+                    if (event.type === 'touchmove') {
+                        event.preventDefault();
+                    }
+                    
+                    // Show message occasionally (60% chance) - LONGER DISPLAY (9 seconds)
+                    if (Math.random() < 0.6) {
+                        const randomMessage = cuteMessages[Math.floor(Math.random() * cuteMessages.length)];
+                        message.textContent = randomMessage;
+                        message.classList.add('show');
+                        
+                        setTimeout(() => {
+                            message.classList.remove('show');
+                        }, 9000);
+                    }
+                    
+                    // Reset moving flag after transition completes
+                    setTimeout(() => {
+                        isMovingRandomly = false;
+                    }, hoverTransition * 1000);
+                }
+            }
+            
+            // Function to celebrate when "Yes" is clicked
+            function celebrateYes() {
+                // Remove both buttons
+                yesBtn.style.display = 'none';
+                noBtn.style.display = 'none';
+                
+                // Change game area style
+                gameArea.classList.add('celebrating');
+                buttonsContainer.classList.add('celebrating');
+                
+                // Show celebration message
+                celebrationMessage.classList.add('show');
+                
+                // Activate celebration hearts
+                celebrationHearts.classList.add('active');
+                
+                // Change the message
+                message.textContent = `Congratulations! You made the right choice! 💖 You clicked "No" ${clickCount} times before saying yes!`;
+                message.classList.add('show');
+                
+                // Stop the "No" button movement events
+                buttonsContainer.removeEventListener('mousemove', moveAwayFromCursor);
+                if (isTouchDevice) {
+                    buttonsContainer.removeEventListener('touchmove', moveAwayFromCursor);
+                }
+                
+                // Clear the random movement interval
+                clearInterval(randomMoveInterval);
+                
+                // Create extra celebration effect
+                createExtraHearts();
+                
+                // Announce to screen readers
+                celebrationMessage.setAttribute('aria-live', 'assertive');
+            }
+            
+            // Create extra hearts for celebration
+            function createExtraHearts() {
+                const extraHeartsCount = isMobile ? 25 : 50; // More hearts for expanded area
+                
+                for (let i = 0; i < extraHeartsCount; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.style.position = 'fixed';
+                        heart.style.color = ['#ff6b9d', '#ff8fab', '#c86bfa'][Math.floor(Math.random() * 3)];
+                        heart.style.fontSize = `${Math.random() * 50 + 30}px`; // Larger hearts
+                        heart.style.left = `${Math.random() * 100}vw`;
+                        heart.style.top = '-50px';
+                        heart.style.opacity = '0.9';
+                        heart.style.zIndex = '1000';
+                        heart.innerHTML = '<i class="fas fa-heart"></i>';
+                        heart.style.animation = `fallHeart ${Math.random() * 4 + 4}s linear forwards`;
+                        heart.style.transform = 'translate3d(0,0,0)';
+                        
+                        document.body.appendChild(heart);
+                        
+                        // Remove heart after animation completes
+                        setTimeout(() => {
+                            if (heart.parentNode) {
+                                heart.parentNode.removeChild(heart);
+                            }
+                        }, 8000);
+                    }, i * 100); // Faster heart generation
+                }
+            }
+            
+            // Event listeners with device-specific optimizations
+            
+            // For mouse devices
+            buttonsContainer.addEventListener('mousemove', function(event) {
+                moveAwayFromCursor(event);
+            });
+            
+            // For touch devices
+            if (isTouchDevice) {
+                buttonsContainer.addEventListener('touchmove', function(event) {
+                    moveAwayFromCursor(event);
+                }, { passive: false });
+                
+                // Prevent context menu on long press
+                buttonsContainer.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            }
+            
+            // "No" button moves when clicked/tapped - INCREASES SPEED
+            noBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                // Increase click count and speed
+                clickCount++;
+                calculateCurrentSpeed();
+                updateSpeedIndicator();
+                
+                // Move the button
+                moveNoButtonRandomly(true, true);
+                
+                // Show speed increase message occasionally
+                if (clickCount % 3 === 0 && clickCount <= maxSpeedLevel) {
+                    setTimeout(() => {
+                        message.textContent = `Speed increased! Level ${Math.min(clickCount, maxSpeedLevel)}/${maxSpeedLevel}!`;
+                        message.classList.add('show');
+                        
+                        setTimeout(() => {
+                            message.classList.remove('show');
+                        }, 3000);
+                    }, 500);
+                }
+            });
+            
+            // "Yes" button triggers celebration
+            yesBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                celebrateYes();
+            });
+            
+            // For keyboard accessibility
+            yesBtn.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    celebrateYes();
+                }
+            });
+            
+            noBtn.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    // Increase click count and speed
+                    clickCount++;
+                    calculateCurrentSpeed();
+                    updateSpeedIndicator();
+                    moveNoButtonRandomly(true, true);
+                }
+            });
+            
+            // Periodically move the "No" button randomly every 3-6 seconds
+            randomMoveInterval = setInterval(() => {
+                const now = Date.now();
+                if (now - lastRandomMoveTime > RANDOM_MOVE_COOLDOWN) {
+                    moveNoButtonRandomly(false, false);
+                    lastRandomMoveTime = now;
+                }
+            }, 3000);
+            
+            // Initial cute message - LONGER DISPLAY (9 seconds)
+            setTimeout(() => {
+                message.textContent = isMobile 
+                    ? "Tap the 'No' button! It gets faster each time in this HUGE arena!" 
+                    : "Try to click the 'No' button! It gets faster with every click in the MASSIVE arena!";
+                message.classList.add('show');
+                
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 9000);
+            }, 1000);
+            
+            // Initialize speed indicator
+            updateSpeedIndicator();
+            
+            // Handle window resize for responsive adjustments
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // Ensure buttons stay within container on resize
+                    const containerRect = buttonsContainer.getBoundingClientRect();
+                    const noBtnRect = noBtn.getBoundingClientRect();
+                    
+                    // Check if noBtn is outside container
+                    if (noBtnRect.left < containerRect.left || 
+                        noBtnRect.right > containerRect.right ||
+                        noBtnRect.top < containerRect.top || 
+                        noBtnRect.bottom > containerRect.bottom) {
+                        moveNoButtonRandomly(false, false);
+                    }
+                }, 250);
+            });
+            
+            // Prevent pull-to-refresh on mobile
+            document.addEventListener('touchmove', function (event) {
+                if (event.scale !== 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Initial random position for "No" button
+            setTimeout(() => {
+                moveNoButtonRandomly(false, false);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
